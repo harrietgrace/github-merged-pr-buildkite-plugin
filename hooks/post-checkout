@@ -7,14 +7,15 @@ standard(){ echo "--- :pipeline: starting a standard branch build"; exit 0; }
 [ "${BUILDKITE_PULL_REQUEST}" == "" ] && standard
 [ "${BUILDKITE_PULL_REQUEST}" == "false" ] && standard
 
-echo "--- :pipeline: starting a pr branch build"
-git diff "origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}..." > diff.txt
+set -u
 
 # we need to set these to run a merge even with --no-commit
 git config user.name "${BUILDKITE_BUILD_CREATOR}"
 git config user.email "${BUILDKITE_BUILD_CREATOR_EMAIL}"
 
-echo ":pipeline: starting a pull request branch build"
+echo "--- :pipeline: starting a pr branch build"
+git diff "origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}..." > diff.txt
+
 git fetch
 
 echo ":git: checkout destination: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
