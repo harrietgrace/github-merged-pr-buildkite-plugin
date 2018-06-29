@@ -1,5 +1,5 @@
 name: git-merged-pr
-description: Merges the target branch from the repo and errors in case of conflicts
+description: Merges the target branch from the pull request and errors in case of conflicts
 author: https://github.com/gugahoi
 requirements: []
 configuration:

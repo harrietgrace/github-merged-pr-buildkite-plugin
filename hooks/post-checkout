@@ -14,12 +14,10 @@ git config user.name "${BUILDKITE_BUILD_CREATOR}"
 git config user.email "${BUILDKITE_BUILD_CREATOR_EMAIL}"
 
 echo "--- :pipeline: starting a pr branch build"
-git diff "origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}..." > diff.txt
-
 git fetch
 
-echo ":git: checkout destination: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+echo "--- :git: checkout destination: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
 git checkout "origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
 
-echo ":git: merge pull request: ${BUILDKITE_BRANCH} [${BUILDKITE_COMMIT}]"
+echo "--- :git: merge pull request: ${BUILDKITE_BRANCH} [${BUILDKITE_COMMIT}]"
 git merge --no-commit "${BUILDKITE_COMMIT}"
