@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail
+
+standard(){ echo "--- :pipeline: starting a standard branch build"; exit 0; }
+
+[ "${BUILDKITE_PULL_REQUEST}" == "" ] && standard
+[ "${BUILDKITE_PULL_REQUEST}" == "false" ] && standard
+
+echo "--- :pipeline: starting a pr branch build"
+git diff "origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}..." > diff.txt
+
+# we need to set these to run a merge even with --no-commit
+git config user.name "${BUILDKITE_BUILD_CREATOR}"
+git config user.email "${BUILDKITE_BUILD_CREATOR_EMAIL}"
+
+echo ":pipeline: starting a pull request branch build"
+git fetch
+
+echo ":git: checkout destination: ${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+git checkout "origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+
+echo ":git: merge pull request: ${BUILDKITE_BRANCH} [${BUILDKITE_COMMIT}]"
+git merge --no-commit "${BUILDKITE_COMMIT}"

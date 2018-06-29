@@ -1,9 +1,7 @@
 name: github-merged-pr
-description: Checks out the GitHub PR merge ref rather than the branch HEAD
-author: https://github.com/seek-oss
+description: Merges the target branch from the repo and errors in case of conflicts
+author: https://github.com/gugahoi
 requirements: []
 configuration:
-  properties:
-    cd:
-      type: string
+  properties: {}
   required: []
