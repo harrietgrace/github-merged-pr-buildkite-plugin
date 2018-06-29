@@ -1,4 +1,4 @@
-name: github-merged-pr
+name: git-merged-pr
 description: Merges the target branch from the repo and errors in case of conflicts
 author: https://github.com/gugahoi
 requirements: []
